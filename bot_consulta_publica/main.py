@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 # pylint: disable=unused-argument
 # This program is dedicated to the public domain under the CC0 license.
 
@@ -16,7 +17,7 @@ bot.
 """
 
 import logging
-
+from utils import *
 from telegram import ForceReply, Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
 import os
@@ -49,7 +50,14 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Echo the user message."""
-    await update.message.reply_text(update.message.text)
+    if context.args:
+        mensagem_usuario = " ".join(context.args)
+    else:
+        mensagem_usuario = ""
+
+    print(mensagem_usuario)
+    res = conect_api(verifica_cnpj(mensagem_usuario))
+    await update.message.reply_text( res)
 
 
 def main() -> None:
