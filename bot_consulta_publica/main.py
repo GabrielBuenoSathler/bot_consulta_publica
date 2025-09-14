@@ -23,7 +23,10 @@ def conect_api(cnpj):
       print(f"cep: {response_dict['cep']}")
 
 def main():
+    
     load_dotenv()  # take variables from .env.
+    db_url = os.getenv("TELEGRAM_KEY")
+    print(db_url)
     conect_api(19131243000197)
 
 
